@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const defaultCollegeImage = "./src/assets/univ.jpg";
+const defaultCollegeImage = "https://as2.ftcdn.net/v2/jpg/04/98/14/49/1000_F_498144940_DkzvRAkgBv1ILU6DiDeMZr6vUufPOra4.jpg";
 
 const colleges = [
   { id: 1, name: "Harvard University", location: "Cambridge, MA", image: defaultCollegeImage },
