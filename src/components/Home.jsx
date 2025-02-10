@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 const defaultCollegeImage = "./src/assets/univ.jpg";
 
 const colleges = [
