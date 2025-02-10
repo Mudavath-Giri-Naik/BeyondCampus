@@ -10,6 +10,8 @@ import AuthModal from "./components/AuthModal"; // Adjust the path if necessary
 import { auth } from "./config/firebaseConfig";
 import { signOut } from "firebase/auth";
 import Home from "./components/Home";
+import CollegePage from "./components/CollegePage";
+import StudentDashboard from "./components/StudentDashboard";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -30,6 +32,9 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/auth" element={<AuthModal />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/college/:id" element={<CollegePage />} />
+        <Route path="/student/:id" element={<StudentDashboard />} />
+
       </Routes>
     </Router>
   );

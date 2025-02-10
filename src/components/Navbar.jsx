@@ -34,7 +34,7 @@ const Navbar = () => {
         </div>
 
         {/* Navigation Links (Centered in md & lg) */}
-        <div className="hidden md:flex flex-1 justify-center gap-10 space-x-6 text-lg">
+        <div className="hidden md:flex flex-1 justify-center gap-12 space-x-6 text-lg">
           {["Home", "Teams", "Resources", "Opportunities", "Profile"].map((item) => (
             <li key={item} className="list-none">
               <Link to={`/${item.toLowerCase()}`} className="hover:text-gray-200 transition">
