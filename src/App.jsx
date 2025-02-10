@@ -9,6 +9,7 @@ import Dashboard from "./components/Dashboard";
 import AuthModal from "./components/AuthModal"; // Adjust the path if necessary
 import { auth } from "./config/firebaseConfig";
 import { signOut } from "firebase/auth";
+import Home from "./components/Home";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,8 +22,9 @@ const App = () => {
     <Router>
       <Navbar isLoggedIn={isLoggedIn} logout={logout} />
       <Routes>
-      <Route path="/" element={<h1 className="text-center mt-10 text-3xl">Home Page</h1>} />
+      <Route path="/" element={<Home />}  />
         <Route path="/teams" element={<Teams />} />
+        <Route path="/Home" element={<Home />} />
         <Route path="/resources" element={<Resources />} />
         <Route path="/opportunities" element={<Opportunities />} />
         <Route path="/profile" element={<Profile />} />

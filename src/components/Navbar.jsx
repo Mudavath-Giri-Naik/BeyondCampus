@@ -1,54 +1,79 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import AuthModal from "./AuthModal";
 import { auth } from "../config/firebaseConfig";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { FaUserCircle } from "react-icons/fa";
+import { onAuthStateChanged } from "firebase/auth";
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
-  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   useEffect(() => {
-    // Listen for authentication state changes
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
     return () => unsubscribe();
   }, []);
 
-  const handleLogout = async () => {
-    await signOut(auth);
-    setUser(null);
-    navigate("/");
-  };
-
   return (
-    <nav className="bg-gray-900 p-3 shadow-lg">
-      <div className="container mx-auto flex justify-between items-center">
-        {/* Brand Name */}
-        <Link to="/" className="text-white text-xl font-bold">
-          BeyondCampus
-        </Link>
+    <nav className="bg-blue-500 text-white py-4 px-6 shadow-lg">
+      <div className="container mx-auto flex items-center justify-between">
+        
+        {/* Left: Hamburger Menu (Mobile Only) */}
+        <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
 
-        {/* Right Side */}
+        {/* Company Name (Left in md & lg, Center in sm) */}
+        <div className="flex-1 md:flex-none md:w-auto text-center md:text-left">
+          <Link to="/" className="text-xl font-bold hover:text-gray-200 transition">
+            BeyondCampus
+          </Link>
+        </div>
+
+        {/* Navigation Links (Centered in md & lg) */}
+        <div className="hidden md:flex flex-1 justify-center space-x-6 text-lg">
+          {["Home", "Teams", "Resources", "Opportunities", "Profile"].map((item) => (
+            <li key={item} className="list-none">
+              <Link to={`/${item.toLowerCase()}`} className="hover:text-gray-200 transition">
+                {item}
+              </Link>
+            </li>
+          ))}
+        </div>
+
+        {/* Right: Login / Dashboard Button */}
         <div>
           {user ? (
-            <button
-              onClick={() => navigate("/dashboard")}
-              className="text-white text-xl flex items-center gap-2 hover:text-gray-300"
-            >
-              <FaUserCircle size={28} />
-            </button>
+            <Link to="/dashboard" className="text-xl font-bold">A</Link>
           ) : (
-            <button
-              onClick={() => navigate("/auth")}
-              className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition duration-300"
-            >
+            <button 
+              onClick={() => setShowAuthModal(true)} 
+              className="bg-white text-sky-500 px-4 py-2 rounded-md font-semibold shadow-lg hover:bg-gray-200 transition">
               Login / Signup
             </button>
           )}
         </div>
       </div>
+
+      {/* Mobile Menu (Dropdown) */}
+      {isOpen && (
+        <div className="md:hidden absolute top-16 left-0 w-full bg-sky-600 p-6 shadow-lg rounded-b-lg">
+          <ul className="flex flex-col space-y-4 text-center">
+            {["Home", "Teams", "Resources", "Opportunities", "Profile"].map((item) => (
+              <li key={item}>
+                <Link to={`/${item.toLowerCase()}`} className="text-lg hover:text-gray-200 transition" onClick={() => setIsOpen(false)}>
+                  {item}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
     </nav>
   );
 };
