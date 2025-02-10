@@ -2,9 +2,8 @@ import React from "react";
 
 const Dashboard = () => {
   return (
-    <div className="container mt-5">
-      <h2>Welcome to the Dashboard!</h2>
-      <p>You have successfully logged in.</p>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <h1 className="text-3xl font-bold text-gray-800">Welcome to Dashboard!</h1>
     </div>
   );
 };

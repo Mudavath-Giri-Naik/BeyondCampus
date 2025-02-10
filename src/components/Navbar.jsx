@@ -1,68 +1,54 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { FiMenu, FiX } from "react-icons/fi"; // Icons for menu toggle
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../config/firebaseConfig";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { FaUserCircle } from "react-icons/fa";
 
-const Navbar = ({ isLoggedIn }) => {
-  const [menuOpen, setMenuOpen] = useState(false);
+const Navbar = () => {
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Listen for authentication state changes
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    setUser(null);
+    navigate("/");
+  };
 
   return (
-    <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
-      <div className="text-xl font-bold">BeyondCampus</div>
+    <nav className="bg-gray-900 p-3 shadow-lg">
+      <div className="container mx-auto flex justify-between items-center">
+        {/* Brand Name */}
+        <Link to="/" className="text-white text-xl font-bold">
+          BeyondCampus
+        </Link>
 
-      {/* Desktop Navigation */}
-      <ul className="hidden md:flex space-x-6">
-        <li><Link to="/" className="hover:underline">Home</Link></li>
-        <li><Link to="/teams" className="hover:underline">Teams</Link></li>
-        <li><Link to="/resources" className="hover:underline">Resources</Link></li>
-        <li><Link to="/opportunities" className="hover:underline">Opportunities</Link></li>
-      </ul>
-
-      {/* Profile/Login Button - Always visible */}
-      <div className="hidden md:block">
-        {isLoggedIn ? (
-          <Link to="/profile">
-            <img
-              src="https://via.placeholder.com/40"
-              alt="Profile"
-              className="rounded-full w-10 h-10"
-            />
-          </Link>
-        ) : (
-          <Link to="/login" className="bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-200">
-            Login/SignUp
-          </Link>
-        )}
+        {/* Right Side */}
+        <div>
+          {user ? (
+            <button
+              onClick={() => navigate("/dashboard")}
+              className="text-white text-xl flex items-center gap-2 hover:text-gray-300"
+            >
+              <FaUserCircle size={28} />
+            </button>
+          ) : (
+            <button
+              onClick={() => navigate("/auth")}
+              className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition duration-300"
+            >
+              Login / Signup
+            </button>
+          )}
+        </div>
       </div>
-
-      {/* Mobile Menu Toggle Button */}
-      <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
-        {menuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
-      </button>
-
-      {/* Mobile Navigation Menu */}
-      {menuOpen && (
-        <ul className="absolute top-16 left-0 w-full bg-blue-600 flex flex-col space-y-4 p-4 md:hidden">
-          <li><Link to="/" className="hover:underline" onClick={() => setMenuOpen(false)}>Home</Link></li>
-          <li><Link to="/teams" className="hover:underline" onClick={() => setMenuOpen(false)}>Teams</Link></li>
-          <li><Link to="/resources" className="hover:underline" onClick={() => setMenuOpen(false)}>Resources</Link></li>
-          <li><Link to="/opportunities" className="hover:underline" onClick={() => setMenuOpen(false)}>Opportunities</Link></li>
-          <li>
-            {isLoggedIn ? (
-              <Link to="/profile" onClick={() => setMenuOpen(false)}>
-                <img
-                  src="https://via.placeholder.com/40"
-                  alt="Profile"
-                  className="rounded-full w-10 h-10"
-                />
-              </Link>
-            ) : (
-              <Link to="/login" className="bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-200" onClick={() => setMenuOpen(false)}>
-                Login/SignUp
-              </Link>
-            )}
-          </li>
-        </ul>
-      )}
     </nav>
   );
 };
