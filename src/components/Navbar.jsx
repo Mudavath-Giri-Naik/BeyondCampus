@@ -29,7 +29,7 @@ const Navbar = () => {
         {/* Company Name (Left in md & lg, Center in sm) */}
         <div className="flex-1 md:flex-none md:w-auto text-center md:text-left">
           <Link to="/" className="text-xl font-bold hover:text-gray-200 transition">
-            BeyondCampus
+            BeyondMyCampus
           </Link>
         </div>
 
