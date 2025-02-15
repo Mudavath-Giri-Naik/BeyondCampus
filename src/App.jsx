@@ -53,7 +53,7 @@ const App = () => {
         {/* Keep existing Home route for direct access */}
         <Route 
           path="/Home" 
-          element={isLoggedIn ? <Home /> : <AuthModal />} 
+          element={isLoggedIn ? <Home /> : <DefaultHome />} 
         />
       </Routes>
     </Router>
