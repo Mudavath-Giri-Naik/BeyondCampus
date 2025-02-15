@@ -14,7 +14,7 @@ const colleges = [
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen  p-8">
       <h1 className="text-4xl font-bold text-center text-gray-800">Find Top Students</h1>
       <p className="text-center text-gray-600 mt-2">Discover the best talent from top universities</p>
 

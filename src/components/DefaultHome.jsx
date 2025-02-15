@@ -4,7 +4,70 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 // Quotes data
 const quotes = [
-  { text: "Your network is your net worth.", author: "Porter Gale" },
+  
+    {
+      "text": "Your network is your net worth.",
+      "author": "Porter Gale"
+    },
+    {
+      "text": "If you want to go fast, go alone. If you want to go far, go together.",
+      "author": "African Proverb"
+    },
+    {
+      "text": "The richest people in the world look for and build networks, everyone else looks for work.",
+      "author": "Robert Kiyosaki"
+    },
+    {
+      "text": "Networking is not about just connecting people. It’s about connecting people with people, people with ideas, and people with opportunities.",
+      "author": "Michele Jennae"
+    },
+    {
+      "text": "Teamwork makes the dream work.",
+      "author": "John C. Maxwell"
+    },
+    {
+      "text": "No one can whistle a symphony. It takes a whole orchestra to play it.",
+      "author": "H.E. Luccock"
+    },
+    {
+      "text": "Alone we can do so little; together we can do so much.",
+      "author": "Helen Keller"
+    },
+    {
+      "text": "Networking is an investment in your business. It takes time and when done correctly, can yield great results for years to come.",
+      "author": "Diane Helbig"
+    },
+    {
+      "text": "Success is best when it’s shared.",
+      "author": "Howard Schultz"
+    },
+    {
+      "text": "The strength of the team is each individual member. The strength of each member is the team.",
+      "author": "Phil Jackson"
+    },
+    {
+      "text": "Great things in business are never done by one person; they're done by a team of people.",
+      "author": "Steve Jobs"
+    },
+    {
+      "text": "A successful team is a group of many hands and one mind.",
+      "author": "Bill Bethel"
+    },
+    {
+      "text": "In networking, real relationships are built when we give more than we take.",
+      "author": "Ivan Misner"
+    },
+    {
+      "text": "Coming together is a beginning, staying together is progress, and working together is success.",
+      "author": "Henry Ford"
+    },
+    {
+      "text": "It is literally true that you can succeed best and quickest by helping others to succeed.",
+      "author": "Napoleon Hill"
+    }
+  
+  
+
   // ... keep all your existing quotes ...
 ];
 
@@ -173,13 +236,13 @@ const DefaultHome = () => {
   useEffect(() => {
     const quoteInterval = setInterval(() => {
       setCurrentQuoteIndex((prev) => (prev + 1) % quotes.length);
-    }, 20000);
+    }, 5000);
 
     return () => clearInterval(quoteInterval);
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-blue-50">
+    <div className="min-h-screen h-[120px] relative bg-grid">
       {/* Hero Section - Keep unchanged */}
 
       {/* Enhanced Problems & Solutions Table */}
@@ -190,10 +253,30 @@ const DefaultHome = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-              Platform Solutions Overview
+            <h2 className="text-4xl font-bold text-gray-900 text-center mb-12 ">
+            Beyond Campuses, Beyond Boundaries
             </h2>
-            
+            <AnimatePresence mode='wait'>
+              <motion.div
+                key={currentQuoteIndex}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.7 }}
+                className="text-center mb-12"
+              >
+                <div className="max-w-2xl mx-auto">
+                  <blockquote className="text-xl font-medium italic text-gray-800">
+                    <span className="text-4xl leading-3">“</span>
+                    {quotes[currentQuoteIndex].text}
+                    <span className="text-4xl leading-3">”</span>
+                  </blockquote>
+                  <p className="mt-4 text-gray-600 font-medium">
+                    – {quotes[currentQuoteIndex].author}
+                  </p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden ring-1 ring-gray-100/50">
               <div className="hidden md:grid grid-cols-3 bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-5">
                 <h3 className="text-lg font-semibold text-white">Problem & Description</h3>

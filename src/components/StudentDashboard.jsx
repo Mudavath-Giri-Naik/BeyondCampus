@@ -19,7 +19,7 @@ const StudentDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen p-8">
       <div className="bg-white p-6 rounded-lg shadow-md text-center">
         <img src="https://www.w3schools.com/howto/img_avatar.png" className="w-32 h-32 mx-auto rounded-full object-cover border" alt="Student" />
         <h2 className="text-2xl font-bold mt-4">Student {id}</h2>

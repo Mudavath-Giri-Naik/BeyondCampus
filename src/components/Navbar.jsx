@@ -18,7 +18,8 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="bg-blue-500 text-white py-4 px-6 shadow-lg">
+    <nav className="bg-gradient-to-r from-cyan-500 to-blue-500
+    text-white py-4 px-6 shadow-lg">
       <div className="container mx-auto flex items-center justify-between">
         
         {/* Left: Hamburger Menu (Mobile Only) */}
@@ -60,8 +61,8 @@ const Navbar = () => {
 
       {/* Mobile Menu (Dropdown) */}
       {isOpen && (
-        <div className="md:hidden absolute top-16 left-0 w-full bg-sky-600 p-6 shadow-lg rounded-b-lg">
-          <ul className="flex flex-col space-y-4 text-center">
+        <div className="md:hidden absolute top-16 left-0 w-full bg-blue-600 p-6 shadow-lg rounded-b-lg">
+          <ul className="flex flex-col space-y-8 text-left">
             {["Home", "Teams", "Resources", "Opportunities", "Profile"].map((item) => (
               <li key={item}>
                 <Link to={`/${item.toLowerCase()}`} className="text-lg hover:text-gray-200 transition" onClick={() => setIsOpen(false)}>
